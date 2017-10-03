@@ -20,9 +20,6 @@ import info.plux.pluxapi.Constants;
 
 public class Definicoes extends AppCompatActivity {
 
-    private final String TAG = getClass().getSimpleName();
-    final int[] digitalChannels = new int[2];
-
     ServiceBitalino mService;
     boolean mBounded;
     Intent mIntent;
@@ -30,8 +27,11 @@ public class Definicoes extends AppCompatActivity {
     Button button;
 
     EditText textConexao;
+
     TextView textEstado;
+    TextView textMACAddress;
     TextView textInformacao;
+
     Button buttonLigar;
     Button buttonDefault;
     Button buttonDesligar;
@@ -49,8 +49,9 @@ public class Definicoes extends AppCompatActivity {
 
         doBindService();
 
+
         final Handler handler = new Handler();
-        final int delay = 1000; //milliseconds
+        final int delay = 500; //milliseconds
 
         handler.postDelayed(new Runnable(){
             public void run(){
@@ -58,16 +59,17 @@ public class Definicoes extends AppCompatActivity {
                 handler.postDelayed(this, delay);
             }
         }, delay);
+
     }
 
     private void initUIElements() {
         buttonLigar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                boolean formatoMAC = textConexao.getText().toString().matches("\\d\\d:\\d\\d:\\d\\d:\\d\\d");
+                boolean formatoMAC = textConexao.getText().toString().matches("\\d\\d:\\d\\d:\\d\\d:\\d\\d:\\d\\d:\\d\\d");
                 if(formatoMAC)
                     mService.ligar(textConexao.getText().toString());
                 else
-                    Toast.makeText(getApplicationContext(), "MAC Address tem de estar no formato \"00:00:00:00\"", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "MAC Address tem de estar no formato \"00:00:00:00:00:00\"", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,6 +86,12 @@ public class Definicoes extends AppCompatActivity {
             }
         });
 
+        buttonState.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                bitalinoInformacao();
+            }
+        });
+
         /*
         buttonState.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -96,15 +104,18 @@ public class Definicoes extends AppCompatActivity {
     private void bitalinoInformacao() {
         String aux = mService.informacao();
 
-        String[] informacao = aux.split(",");
-        String macAddress = informacao[0];
-        if(macAddress == "null"){
+        String[] informacao = aux.split("/");
+        String bitalinoState = informacao[0];
+        String bitalinoName = informacao[1];
+
+
+        if(bitalinoState.equals("null")){
             textEstado.setText("NOT_CONNECTED");
         }
         else {
-            String estado = informacao[1];
-            String info = informacao[2];
-            textEstado.setText(estado);
+            String[] bitalinoInfo = bitalinoState.split(" "); // String retornada: Device 20:15:05:29:21:77: CONNECTED
+            textEstado.setText(bitalinoInfo[2]);
+            textMACAddress.setText(bitalinoInfo[1]);
         }
 
     }
@@ -115,6 +126,7 @@ public class Definicoes extends AppCompatActivity {
 
 
         textEstado = (TextView) findViewById(R.id.textView_estado);
+        textMACAddress = (TextView) findViewById(R.id.textView_macAddress);
 
         buttonLigar = (Button) findViewById(R.id.button_ligar);
         buttonDesligar = (Button) findViewById(R.id.button_desligar);
@@ -162,6 +174,8 @@ public class Definicoes extends AppCompatActivity {
         Intent intent = new Intent(Definicoes.this, MainActivity.class);
         intent.putExtra("Back Pressed",true);
         startActivity(intent);
+        finish();
+
     }
 
 

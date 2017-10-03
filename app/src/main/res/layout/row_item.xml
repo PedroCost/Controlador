@@ -5,32 +5,26 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/listView_Maintext"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Main Text"
+        android:text="Marshmallow"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-
-    <TextView
-        android:id="@+id/listView_Subtext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/listView_Maintext"
-        android:layout_marginTop="5dp"
-        android:text="Subtext"
-        android:textColor="@android:color/black" />
 
     <ImageView
-        android:id="@+id/listView_item_info"
+        android:id="@+id/item_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@android:drawable/ic_dialog_info" />
+
 
 
 </RelativeLayout>

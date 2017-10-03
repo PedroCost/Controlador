@@ -21,17 +21,16 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import info.plux.pluxapi.bitalino.BITalinoCommunication;
+import pedrocosta.controlador.ListaMovimentos.ListaMovimentos;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private Dedo dedoPolegar, dedoIndicador, dedoMedio, dedoAnelar, dedoMinimo, dedo;
+    private Dedo dedoPolegar, dedoIndicador, dedoMedio, dedoAnelar, dedoMinimo, dedoRotacao;
 
     private final String TAG = this.getClass().getSimpleName();
 
@@ -87,7 +86,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-
         doBindService();
     }
 
@@ -127,10 +125,10 @@ public class MainActivity extends AppCompatActivity
         buttonPWM.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 estadoDedos();
-                if(dedoIndicador.isAtivo() || dedoAnelar.isAtivo())
-                    mService.pwm(seekBar.getProgress()*20 + 120);
+                if(dedoIndicador.isAtivo() || dedoAnelar.isAtivo() || dedoRotacao.isAtivo())
+                    mService.pwm(seekBar.getProgress() * 20 + 120);
                 else
-                    mService.pwm(seekBar.getProgress()*20);
+                    mService.pwm(seekBar.getProgress() * 20);
             }
         });
     }
@@ -149,6 +147,7 @@ public class MainActivity extends AppCompatActivity
         dedoMedio = new Dedo("Medio", 2, ((ImageView) findViewById(R.id.imageMedio)));              listaDedos.add(dedoMedio);
         dedoAnelar = new Dedo("Anelar", 3, ((ImageView) findViewById(R.id.imageAnelar)));           listaDedos.add(dedoAnelar);
         dedoMinimo = new Dedo("Minimo", 4, ((ImageView) findViewById(R.id.imageMinimo)));           listaDedos.add(dedoMinimo);
+        dedoRotacao = new Dedo("RotacaoPolegar", 5, ((ImageView) findViewById(R.id.imageRotacao))); listaDedos.add(dedoRotacao);
 
     }
 
@@ -244,12 +243,24 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void trataDedos(float x, float y) {
+        int alturaImagem = findViewById(R.id.imageMao).getHeight();
+        int larguraImagem = findViewById(R.id.imageMao).getWidth();
+
         // POLEGAR
         if (x > 3 && x < 364 && y > 429 && y < 689) {
             dedoPolegar.mudaEstado();
             if(dedoPolegar.isAtivo()) {
                 desativaDedos(dedoPolegar.getPosicao());
                 mService.trigger(1, 0);
+            }
+            else
+                mService.trigger(0,0);
+            // ROTACAO POLEGAR
+        } else if (x > 218 && x < 295 && y > 660 && y < 775) {
+            dedoRotacao.mudaEstado();
+            if(dedoRotacao.isAtivo()){
+                desativaDedos(dedoRotacao.getPosicao());
+                mService.trigger(1,1);
             }
             else
                 mService.trigger(0,0);

@@ -1,4 +1,4 @@
-package pedrocosta.controlador;
+package pedrocosta.controlador.ListaMovimentos;
 
 /**
  * Created by anupamchugh on 09/02/16.

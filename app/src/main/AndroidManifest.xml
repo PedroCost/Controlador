@@ -29,8 +29,10 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ListaMovimentos" />
-        <activity android:name=".Definicoes" />
+        <activity android:name=".ListaMovimentos.ListaMovimentos" />
+        <activity
+            android:name=".Definicoes"
+            android:noHistory="true"/>
 
     </application>
 

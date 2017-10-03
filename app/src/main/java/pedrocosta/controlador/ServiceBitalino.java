@@ -31,12 +31,9 @@ public class ServiceBitalino extends Service {
     IBinder mBinder = new LocalBinder();
     int mStartMode;
 
-    String BITalinoVersion, BITalinoName, BITalinoState;
+    String BITalinoVersion = "null", BITalinoName = "null", BITalinoState = "null";
 
     private Constants.States currentState = Constants.States.DISCONNECTED;
-
-    public ServiceBitalino() {
-    }
 
 
     public class LocalBinder extends Binder {
@@ -50,7 +47,7 @@ public class ServiceBitalino extends Service {
         return mBinder;
     }
 
-
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         System.out.println("START COMMAND SERVICE");
 
@@ -90,7 +87,7 @@ public class ServiceBitalino extends Service {
     }
 
     public void ligar() {
-        ligar("20:15:05:29:21:77");
+        ligar("20:16:04:12:00:41");
     }
 
     public void ligar(String ip) {
@@ -108,27 +105,30 @@ public class ServiceBitalino extends Service {
         pwm(0);
         try {
             bitalino.trigger(digitalChannels);
+        } catch (BITalinoException e) {
+            e.printStackTrace();
+        }
+        try {
             bitalino.disconnect();
-
         } catch (BITalinoException e) {
             e.printStackTrace();
         }
     }
 
     public String informacao(){
-        String[] str = {};
+        try {
+            bitalino.state();
+        } catch (BITalinoException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println(">><<");
-        System.out.println(BITalinoVersion);
-        System.out.println(BITalinoName);
-
-        if(BITalinoVersion != null) {
-            str = BITalinoVersion.split(" "); // Device 20:15:05:29:21:77: CONNECTED
-            String aux = str[1] + "," + str[2] + "," + BITalinoName;
+        if(!BITalinoVersion.equals("null")) {
+            //BITalinoName= Device 20:15:05:29:21:77: CONNECTED
+            String aux = BITalinoName +"/"+ BITalinoVersion;
             return aux;
         }
 
-        String aux = BITalinoVersion + "," + BITalinoName;
+        String aux = BITalinoVersion + "/" + BITalinoName;
         return aux;
     }
 

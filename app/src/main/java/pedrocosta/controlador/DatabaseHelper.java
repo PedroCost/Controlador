@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import pedrocosta.controlador.ListaMovimentos.Movimento;
+
 /**
  * Created by Pedro-PC on 9/5/2017.
  */
@@ -71,12 +73,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_NAME, movimento.getNome()); // Movimento Name
-        values.put(KEY_POLEGAR, movimento.getValorDedo(KEY_POLEGAR));
-        values.put(KEY_INDICADOR, movimento.getValorDedo(KEY_INDICADOR));
-        values.put(KEY_MEDIO, movimento.getValorDedo(KEY_MEDIO));
-        values.put(KEY_ANELAR, movimento.getValorDedo(KEY_ANELAR));
-        values.put(KEY_MINIMO, movimento.getValorDedo(KEY_MINIMO));
+        values.put(KEY_NAME, movimento.getNome());
+        values.put(KEY_POLEGAR, movimento.getPolegar());
+        values.put(KEY_INDICADOR, movimento.getIndicador());
+        values.put(KEY_MEDIO, movimento.getMedio());
+        values.put(KEY_ANELAR, movimento.getAnelar());
+        values.put(KEY_MINIMO, movimento.getMinimo());
 
 
         // Inserting Row
@@ -105,12 +107,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         HashMap<String, Integer> hashDedoValor = new HashMap<>();
         //Integer.parseInt(cursor.getString(0)), hashDedoValor.put("polegar",Integer.parseInt(cursor.getString(1)))
-        hashDedoValor.put("polegar",Integer.parseInt(cursor.getString(2)));
-        hashDedoValor.put("indicador",Integer.parseInt(cursor.getString(3)));
-        hashDedoValor.put("medio",Integer.parseInt(cursor.getString(4)));
-        hashDedoValor.put("anelar",Integer.parseInt(cursor.getString(5)));
-        hashDedoValor.put("minimo",Integer.parseInt(cursor.getString(6)));
-        Movimento movimento = new Movimento(Integer.parseInt(cursor.getString(0)),cursor.getString(1),hashDedoValor);
+        int polegar = Integer.parseInt(cursor.getString(2));
+        int indicador = Integer.parseInt(cursor.getString(3));
+        int medio = Integer.parseInt(cursor.getString(4));
+        int anelar = Integer.parseInt(cursor.getString(5));
+        int minimo = Integer.parseInt(cursor.getString(6));
+        Movimento movimento = new Movimento(Integer.parseInt(cursor.getString(0)),cursor.getString(1),polegar,indicador,medio,anelar,minimo);
 
         return movimento;
     }
@@ -128,8 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                HashMap<String, Integer> hashDedoValor = new HashMap<>();
-                Movimento movimento = new Movimento(0,"Nome",hashDedoValor);
+                Movimento movimento = new Movimento(0,"Nome",0,0,0,0,0);
                 movimento.setID(Integer.parseInt(cursor.getString(0)));
 
                 // Adding movimento to list
