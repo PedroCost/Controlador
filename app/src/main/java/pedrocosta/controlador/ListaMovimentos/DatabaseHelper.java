@@ -1,4 +1,4 @@
-package pedrocosta.controlador;
+package pedrocosta.controlador.ListaMovimentos;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,13 +27,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_MOVIMENTOS = "movimentos";
 
     // Movimentos Table Columns names
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_POLEGAR = "polegar";
-    private static final String KEY_INDICADOR = "indicador";
-    private static final String KEY_MEDIO = "medio";
-    private static final String KEY_ANELAR = "anelar";
-    private static final String KEY_MINIMO = "minimo";
+    private static final String KEY_ID = "id", KEY_NAME = "name", KEY_POLEGAR = "polegar", KEY_INDICADOR = "indicador",
+                                KEY_MEDIO = "medio", KEY_ANELAR = "anelar", KEY_MINIMO = "minimo", KEY_ROTACAO = "rotacao";
 
 
     public DatabaseHelper(Context context) {
@@ -45,8 +40,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_TABLE_MOVIMENTOS = "CREATE TABLE " + TABLE_MOVIMENTOS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_POLEGAR + " INTEGER" +  KEY_INDICADOR + " INTEGER" + KEY_MEDIO + " INTEGER" + KEY_ANELAR + " INTEGER" + KEY_MINIMO + " INTEGER" +
-                ")";
+                + KEY_POLEGAR + " INTEGER" +  KEY_INDICADOR + " INTEGER" + KEY_MEDIO + " INTEGER" + KEY_ANELAR + " INTEGER" + KEY_MINIMO + " INTEGER" + KEY_ROTACAO + " INTEGER"
+                + ")";
         db.execSQL(CREATE_TABLE_MOVIMENTOS);
     }
 
@@ -79,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_MEDIO, movimento.getMedio());
         values.put(KEY_ANELAR, movimento.getAnelar());
         values.put(KEY_MINIMO, movimento.getMinimo());
+        values.put(KEY_ROTACAO, movimento.getRotacao());
 
 
         // Inserting Row
@@ -112,7 +108,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int medio = Integer.parseInt(cursor.getString(4));
         int anelar = Integer.parseInt(cursor.getString(5));
         int minimo = Integer.parseInt(cursor.getString(6));
-        Movimento movimento = new Movimento(Integer.parseInt(cursor.getString(0)),cursor.getString(1),polegar,indicador,medio,anelar,minimo);
+        int rotacao = Integer.parseInt(cursor.getString(7));
+        Movimento movimento = new Movimento(Integer.parseInt(cursor.getString(0)),cursor.getString(1),polegar,indicador,medio,anelar,minimo,rotacao);
 
         return movimento;
     }
@@ -130,7 +127,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Movimento movimento = new Movimento(0,"Nome",0,0,0,0,0);
+                Movimento movimento = new Movimento(0,"Nome",0,0,0,0,0,0);
                 movimento.setID(Integer.parseInt(cursor.getString(0)));
 
                 // Adding movimento to list

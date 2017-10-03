@@ -7,18 +7,14 @@ import java.util.HashMap;
 
 import static java.security.AccessController.getContext;
 
-/**
- * Created by Pedro-PC on 9/5/2017.
- */
-
 public class Movimento {
 
-    int ID, polegar, indicador, medio, anelar, minimo;
+    int ID, polegar, indicador, medio, anelar, minimo, rotacao;
     String nome;
     // HashMap<String, Integer> hashDedoValor = new HashMap<>();
 
 
-    public Movimento(int ID, String nome, int polegar, int indicador, int medio, int anelar, int minimo) {
+    public Movimento(int ID, String nome, int polegar, int indicador, int medio, int anelar, int minimo, int rotacao) {
         this.ID = ID;
         this.nome = nome;
         this.polegar = polegar;
@@ -26,6 +22,7 @@ public class Movimento {
         this.medio = medio;
         this.anelar = anelar;
         this.minimo = minimo;
+        this.rotacao = rotacao;
     }
 
     public int getID() {
@@ -76,6 +73,14 @@ public class Movimento {
         this.minimo = minimo;
     }
 
+    public int getRotacao() {
+        return rotacao;
+    }
+
+    public void setRotacao(int rotacao) {
+        this.rotacao = rotacao;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -85,7 +90,7 @@ public class Movimento {
     }
 
     public String getTodosValores() {
-        String str = String.valueOf(polegar) + "," + String.valueOf(indicador) + "," + String.valueOf(medio) + "," + String.valueOf(anelar) + "," + String.valueOf(minimo);
+        String str = String.valueOf(polegar) + "," + String.valueOf(indicador) + "," + String.valueOf(medio) + "," + String.valueOf(anelar) + "," + String.valueOf(minimo) + "," + String.valueOf(rotacao);
         return str;
     }
 }

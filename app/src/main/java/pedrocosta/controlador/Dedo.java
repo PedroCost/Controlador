@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class Dedo {
     private String nome;
-    private int valor;
+    private int valor, pwm;
     private int posicao;
     private boolean ativo;
     private ImageView imagem;
@@ -21,6 +21,7 @@ public class Dedo {
         this.posicao = posicao;
         this.ativo = false;
         this.imagem = imagem;
+        this.pwm = 0;
     }
     public Dedo() {
     }
@@ -57,6 +58,14 @@ public class Dedo {
         this.ativo = ativo;
     }
 
+    public int getPwm() {
+        return pwm;
+    }
+
+    public void setPwm(int pwm) {
+        this.pwm = pwm;
+    }
+
     public void mudaEstado(){
         this.ativo = !ativo;
         if (this.imagem.getVisibility() == View.VISIBLE){
@@ -78,6 +87,7 @@ public class Dedo {
                 ", valor=" + valor +
                 ", posicao=" + posicao +
                 ", ativo=" + ativo +
+                ", pwm=" + pwm +
                 '}';
     }
 }

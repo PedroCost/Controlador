@@ -36,11 +36,11 @@ public class ListaMovimentos extends AppCompatActivity {
 
         listaMovimentos = new ArrayList<>();
 
-        listaMovimentos.add(new Movimento(0, "Polegar", 0,0,0,0,0));
-        listaMovimentos.add(new Movimento(0, "Indicador", 0,0,0,0,0));
-        listaMovimentos.add(new Movimento(0, "Medio", 0,0,0,0,0));
-        listaMovimentos.add(new Movimento(0, "Anelar", 0,0,0,0,0));
-        listaMovimentos.add(new Movimento(0, "Minimo", 0,0,0,0,0));
+        listaMovimentos.add(new Movimento(0, "Polegar", 0,0,0,0,0,0));
+        listaMovimentos.add(new Movimento(0, "Indicador", 0,0,0,0,0,0));
+        listaMovimentos.add(new Movimento(0, "Medio", 0,0,0,0,0,0));
+        listaMovimentos.add(new Movimento(0, "Anelar", 0,0,0,0,0,0));
+        listaMovimentos.add(new Movimento(0, "Minimo", 0,0,0,0,0,0));
 
 
         adapter = new CustomAdapter(listaMovimentos, getApplicationContext());
@@ -92,8 +92,11 @@ public class ListaMovimentos extends AppCompatActivity {
     }
 
     private void mostrarDialogCriarMovimento() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListaMovimentos.this);
-        View viewDialog = getLayoutInflater().inflate(R.layout.dialog, null);
+        final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListaMovimentos.this);
+        final View viewDialog = getLayoutInflater().inflate(R.layout.dialog_criar_movimento, null);
+
+        alertBuilder.setView(viewDialog);
+        final AlertDialog alert = alertBuilder.create();
 
         Button viewConfirm = (Button) viewDialog.findViewById(R.id.button_dialogConfirmar);
         Button viewCancel = (Button) viewDialog.findViewById(R.id.button_dialogCancelar);
@@ -106,11 +109,11 @@ public class ListaMovimentos extends AppCompatActivity {
         viewCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Toast.makeText(ListaMovimentos.this , "Cancelado", Toast.LENGTH_LONG).show();
+                alert.dismiss();
             }
         });
 
-        alertBuilder.setView(viewDialog);
-        AlertDialog alert = alertBuilder.create();
+
         alert.show();
     }
 

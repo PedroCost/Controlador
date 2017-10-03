@@ -24,7 +24,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import info.plux.pluxapi.bitalino.BITalinoCommunication;
 import pedrocosta.controlador.ListaMovimentos.ListaMovimentos;
 
 public class MainActivity extends AppCompatActivity
@@ -32,17 +31,10 @@ public class MainActivity extends AppCompatActivity
 
     private Dedo dedoPolegar, dedoIndicador, dedoMedio, dedoAnelar, dedoMinimo, dedoRotacao;
 
-    private final String TAG = this.getClass().getSimpleName();
-
-    private boolean isBITalino2 = false;
-    private BITalinoCommunication bitalino;
-
-    final int[] digitalChannels = new int[2];
     private static final int REQUEST_ENABLE_BT = 1;
 
     ServiceBitalino mService;
     boolean mBounded;
-    boolean serviceBounded;
     TextView text;
     Button buttonPWM;
     ComponentName service = null;
@@ -243,23 +235,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void trataDedos(float x, float y) {
-        int alturaImagem = findViewById(R.id.imageMao).getHeight();
-        int larguraImagem = findViewById(R.id.imageMao).getWidth();
+        int alturaImg = findViewById(R.id.imageMao).getHeight(); // 1190
+        int larguraImg = findViewById(R.id.imageMao).getWidth(); // 876
 
-        // POLEGAR
-        if (x > 3 && x < 364 && y > 429 && y < 689) {
+
+            // POLEGAR
+        if (x > 0 && x < pct(40,larguraImg) && y > pct(36,alturaImg) && y < pct(58,alturaImg)) { //x > 0 && x < 364 && y > 429 && y < 689
             dedoPolegar.mudaEstado();
             if(dedoPolegar.isAtivo()) {
                 desativaDedos(dedoPolegar.getPosicao());
+                seekBar.setProgress(dedoPolegar.getPwm());
                 mService.trigger(1, 0);
             }
             else
                 mService.trigger(0,0);
-            // ROTACAO POLEGAR
+            // ROTACAO
         } else if (x > 218 && x < 295 && y > 660 && y < 775) {
             dedoRotacao.mudaEstado();
             if(dedoRotacao.isAtivo()){
                 desativaDedos(dedoRotacao.getPosicao());
+                seekBar.setProgress(dedoRotacao.getPwm());
                 mService.trigger(1,1);
             }
             else
@@ -269,6 +264,7 @@ public class MainActivity extends AppCompatActivity
             dedoIndicador.mudaEstado();
             if(dedoIndicador.isAtivo()){
                 desativaDedos(dedoIndicador.getPosicao());
+                seekBar.setProgress(dedoIndicador.getPwm());
                 mService.trigger(1,0);
             }
             else
@@ -278,6 +274,7 @@ public class MainActivity extends AppCompatActivity
             dedoMedio.mudaEstado();
             if (dedoMedio.isAtivo()){
                 desativaDedos(dedoMedio.getPosicao());
+                seekBar.setProgress(dedoMedio.getPwm());
                 mService.trigger(1, 1);
             }
             else
@@ -287,6 +284,7 @@ public class MainActivity extends AppCompatActivity
             dedoAnelar.mudaEstado();
             if(dedoAnelar.isAtivo()) {
                 desativaDedos(dedoAnelar.getPosicao());
+                seekBar.setProgress(dedoAnelar.getPwm());
                 mService.trigger(0, 1);
             }
             else
@@ -296,6 +294,7 @@ public class MainActivity extends AppCompatActivity
             dedoMinimo.mudaEstado();
             if(dedoMinimo.isAtivo()) {
                 desativaDedos(dedoMinimo.getPosicao());
+                seekBar.setProgress(dedoMinimo.getPwm());
                 mService.trigger(0, 1);
             }
             else
@@ -305,8 +304,11 @@ public class MainActivity extends AppCompatActivity
 
     public void desativaDedos(int posicao){
         for (Dedo elemento : listaDedos) {
-            if(elemento.getPosicao() != posicao)
+            if(elemento.getPosicao() != posicao && elemento.isAtivo()) {
+                elemento.setPwm(seekBar.getProgress());
                 elemento.desativa();
+
+            }
         }
     }
 
@@ -316,6 +318,11 @@ public class MainActivity extends AppCompatActivity
         System.out.println(dedoMedio.toString());
         System.out.println(dedoAnelar.toString());
         System.out.println(dedoMinimo.toString());
+    }
+
+    public int pct(int percentagem, int valor){
+        double aux = (percentagem / 100.0) * valor;
+        return (int) Math.ceil(aux);
     }
 
 }
