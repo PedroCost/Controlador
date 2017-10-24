@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -172,8 +173,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        System.out.println("OnDestroy Main");
+        Log.d("OnDestroy Main","OnDestroy Main");
         mService.desligar();
+        doUnbindService();
     }
 
     @Override
@@ -185,8 +187,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d("OnPause Main","OnPause Main");
         System.out.println("OnPause Main Activity");
         doUnbindService();
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.d("OnStop Main","OnStop Main");
+        System.out.println("OnStop Main Activity");
     }
 
     @Override
@@ -209,6 +219,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
             return true;
         }
+        if (id == R.id.item_info) {
+            Intent i = new Intent(getApplicationContext(), About.class);
+            startActivity(i);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -222,7 +237,12 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(getApplicationContext(), Definicoes.class);
             startActivity(i);
         }
-        if (id == R.id.nav_listaMovimentos) {
+        else if (id == R.id.nav_about) {
+            Intent i = new Intent(getApplicationContext(), About.class);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.nav_listaMovimentos) {
             Intent i = new Intent(getApplicationContext(), ListaMovimentos.class);
             startActivity(i);
         } else if (id == R.id.nav_sair) {

@@ -8,68 +8,54 @@
 
     <EditText
         android:id="@+id/editText_MACAdress"
-        android:layout_width="287dp"
+        android:layout_width="0dp"
         android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:contentDescription="MAC Address"
         android:ems="10"
         android:hint="MAC Address"
         android:inputType="textPersonName"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_ligar"
-        android:layout_width="143dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="22dp"
-        android:elevation="9dp"
+        android:background="@color/colorPrimary"
+        android:elevation="24dp"
         android:text="Ligar"
+        app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_MACAdress"
-        app:layout_constraintHorizontal_bias="0.139"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_MACAdress" />
 
     <Button
         android:id="@+id/button_desligar"
-        android:layout_width="143dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="21dp"
+        android:background="@color/colorPrimaryDark"
         android:elevation="9dp"
         android:text="Desligar"
         app:layout_constraintHorizontal_bias="0.139"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_ligar"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
-
-    <Button
-        android:id="@+id/button_default"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="102dp"
-        android:text="default"
-        app:layout_constraintHorizontal_bias="0.971"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/button_ligar" />
 
     <TextView
         android:id="@+id/textView_info"
@@ -79,88 +65,87 @@
         android:layout_marginRight="8dp"
         android:freezesText="true"
         android:text="Ligado a :"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="87dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintTop_toBottomOf="@+id/button_desligar" />
 
-    <Button
-        android:id="@+id/button_state"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="State"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/textView_info"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="67dp"
-        app:layout_constraintTop_toBottomOf="@+id/button_desligar"
-        app:layout_constraintHorizontal_bias="0.369" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="29dp"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_info"
-        app:layout_constraintHorizontal_bias="0.0">
-
-        <TextView
-            android:id="@+id/textView_to_estado"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.21"
-            android:text="Estado :"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView_estado"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.21"
-            android:text="Estado"
-            android:textAlignment="center"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="63dp"
+        android:orientation="vertical"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        android:layout_marginTop="0dp">
+        app:layout_constraintTop_toBottomOf="@+id/button_desligar"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
-        <TextView
-            android:id="@+id/textView_to_macAddress"
+        <LinearLayout
+            android:id="@+id/linearLayout_Polegar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1.05"
-            android:text="MAC Address:"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_info">
 
-        <TextView
-            android:id="@+id/textView_macAddress"
+            <TextView
+                android:id="@+id/textView_to_estado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.21"
+                android:text="Estado :"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView_estado"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.21"
+                android:text="Estado"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="MAC Address"
-            android:textAlignment="center"
-            android:textSize="18sp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout_Polegar">
+
+            <TextView
+                android:id="@+id/textView_to_macAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="MAC Address:"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView_macAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="MAC Address"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
     </LinearLayout>
 
 

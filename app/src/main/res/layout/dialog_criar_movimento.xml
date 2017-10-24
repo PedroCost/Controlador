@@ -2,63 +2,49 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView_criarMovimento"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Criar Movimento"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/editText_criarNomeMovimento"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:layout_marginTop="51dp"
+        android:contentDescription="Nome"
+        android:ems="10"
+        android:hint="Nome"
+        android:inputType="textPersonName"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <EditText
-            android:id="@+id/editText_nomeMovimento"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:contentDescription="Nome"
-            android:ems="10"
-            android:hint="Nome"
-            android:inputType="textPersonName"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout_Polegar"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -68,7 +54,7 @@
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView_criarMovimento">
 
         <TextView
             android:id="@+id/textView_criarPolegar"
@@ -80,16 +66,48 @@
             android:id="@+id/seekBar_criarPolegar"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="29dp"
             android:max="5"
             android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout_Rotacao"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Polegar">
+
+        <TextView
+            android:id="@+id/textView_criarRotacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rotação do Polegar" />
+
+        <SeekBar
+            android:id="@+id/seekBar_criarRotacao"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:max="5"
+            android:progress="0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout_Indicador"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -97,9 +115,10 @@
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Rotacao">
 
         <TextView
             android:id="@+id/textView_criarIndicador"
@@ -111,26 +130,27 @@
             android:id="@+id/seekBar_criarIndicador"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="29dp"
             android:max="5"
             android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayout_Medio"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="7dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Indicador">
 
         <TextView
             android:id="@+id/textView_criarMedio"
@@ -142,26 +162,27 @@
             android:id="@+id/seekBar_criarMedio"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="29dp"
             android:max="5"
             android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/linearLayout_Anelar"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="14dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Medio">
 
         <TextView
             android:id="@+id/textView_criarAnelar"
@@ -173,26 +194,27 @@
             android:id="@+id/seekBar_criarAnelar"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="29dp"
             android:max="5"
             android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
+        android:id="@+id/linearLayout_Minimo"
         android:layout_width="0dp"
-        android:layout_height="51dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:orientation="vertical"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Anelar">
 
         <TextView
             android:id="@+id/textView_criarMinimo"
@@ -204,24 +226,26 @@
             android:id="@+id/seekBar_criarMinimo"
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="29dp"
             android:max="5"
             android:progress="0" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayour_Botoes"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="13dp"
         android:orientation="horizontal"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_Minimo">
 
         <Button
             android:id="@+id/button_dialogCancelar"

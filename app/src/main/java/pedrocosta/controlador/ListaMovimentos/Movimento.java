@@ -14,8 +14,18 @@ public class Movimento {
     // HashMap<String, Integer> hashDedoValor = new HashMap<>();
 
 
-    public Movimento(int ID, String nome, int polegar, int indicador, int medio, int anelar, int minimo, int rotacao) {
-        this.ID = ID;
+    public Movimento(String nome, int polegar, int indicador, int medio, int anelar, int minimo, int rotacao) {
+        this.ID = 1;
+        this.nome = nome;
+        this.polegar = polegar;
+        this.indicador = indicador;
+        this.medio = medio;
+        this.anelar = anelar;
+        this.minimo = minimo;
+        this.rotacao = rotacao;
+    }
+    public Movimento(int id, String nome, int polegar, int indicador, int medio, int anelar, int minimo, int rotacao) {
+        this.ID = id;
         this.nome = nome;
         this.polegar = polegar;
         this.indicador = indicador;
@@ -87,6 +97,15 @@ public class Movimento {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void setDedos(int polegar, int rotacao, int indicador, int medio, int anelar, int minimo) {
+        this.polegar = polegar;
+        this.rotacao = rotacao;
+        this.indicador = indicador;
+        this.medio = medio;
+        this.anelar = anelar;
+        this.minimo = minimo;
     }
 
     public String getTodosValores() {

@@ -100,14 +100,6 @@ public class ServiceBitalino extends Service {
     }
 
     public void desligar() {
-        digitalChannels[0] = 0;
-        digitalChannels[1] = 0;
-        pwm(0);
-        try {
-            bitalino.trigger(digitalChannels);
-        } catch (BITalinoException e) {
-            e.printStackTrace();
-        }
         try {
             bitalino.disconnect();
         } catch (BITalinoException e) {

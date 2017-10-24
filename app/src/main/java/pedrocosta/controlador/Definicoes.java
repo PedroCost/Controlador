@@ -1,9 +1,11 @@
 package pedrocosta.controlador;
 
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -23,20 +25,19 @@ public class Definicoes extends AppCompatActivity {
     ServiceBitalino mService;
     boolean mBounded;
     Intent mIntent;
-    TextView text;
-    Button button;
+    BluetoothAdapter mBluetoothAdapter;
+    private static final int REQUEST_ENABLE_BT = 1;
 
     EditText textConexao;
 
-    TextView textEstado;
-    TextView textMACAddress;
-    TextView textInformacao;
+    TextView textEstado, textMACAddress;
 
-    Button buttonLigar;
-    Button buttonDefault;
-    Button buttonDesligar;
-    Button buttonState;
+    Button buttonLigar, buttonDefault, buttonDesligar;
     private Constants.States currentState = Constants.States.DISCONNECTED;
+
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,11 @@ public class Definicoes extends AppCompatActivity {
 
         doBindService();
 
+        String mac = pref.getString("MACAddress","");
+        textConexao.setText(mac);
 
-        final Handler handler = new Handler();
+
+
         final int delay = 500; //milliseconds
 
         handler.postDelayed(new Runnable(){
@@ -66,19 +70,23 @@ public class Definicoes extends AppCompatActivity {
         buttonLigar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 boolean formatoMAC = textConexao.getText().toString().matches("\\d\\d:\\d\\d:\\d\\d:\\d\\d:\\d\\d:\\d\\d");
-                if(formatoMAC)
-                    mService.ligar(textConexao.getText().toString());
-                else
-                    Toast.makeText(getApplicationContext(), "MAC Address tem de estar no formato \"00:00:00:00:00:00\"", Toast.LENGTH_SHORT).show();
+
+                if (!mBluetoothAdapter.isEnabled()) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+                } else {
+                    if (formatoMAC) {
+                        mService.ligar(textConexao.getText().toString());
+                        editor.putString("MACAddress",textConexao.getText().toString());
+                        editor.commit();
+                    }
+                    else
+                        Toast.makeText(getApplicationContext(), "MAC Address tem de estar no formato \"00:00:00:00:00:00\"", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
-        buttonDefault.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mService.ligar();
-            }
-        });
 
         buttonDesligar.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,19 +94,6 @@ public class Definicoes extends AppCompatActivity {
             }
         });
 
-        buttonState.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                bitalinoInformacao();
-            }
-        });
-
-        /*
-        buttonState.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mService.informacao();
-            }
-        });
-        */
     }
 
     private void bitalinoInformacao() {
@@ -121,6 +116,10 @@ public class Definicoes extends AppCompatActivity {
     }
 
     private void initElements(){
+        pref = getApplicationContext().getSharedPreferences("PrefMacAddress", MODE_PRIVATE);
+        editor = pref.edit();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         mIntent = new Intent(this, ServiceBitalino.class);
         textConexao = (EditText)findViewById(R.id.editText_MACAdress);
 
@@ -130,8 +129,8 @@ public class Definicoes extends AppCompatActivity {
 
         buttonLigar = (Button) findViewById(R.id.button_ligar);
         buttonDesligar = (Button) findViewById(R.id.button_desligar);
-        buttonDefault = (Button) findViewById(R.id.button_default);
-        buttonState = (Button) findViewById(R.id.button_state);
+
+        handler = new Handler();
     }
 
 
@@ -152,6 +151,7 @@ public class Definicoes extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         doUnbindService();
+        handler.removeCallbacksAndMessages(null);
         System.out.println("OnPause Definicoes");
     }
 
@@ -174,6 +174,7 @@ public class Definicoes extends AppCompatActivity {
         Intent intent = new Intent(Definicoes.this, MainActivity.class);
         intent.putExtra("Back Pressed",true);
         startActivity(intent);
+        onPause();
         finish();
 
     }
