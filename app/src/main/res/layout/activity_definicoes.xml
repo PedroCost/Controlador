@@ -6,22 +6,36 @@
     android:layout_height="match_parent"
     tools:context="pedrocosta.controlador.Definicoes">
 
-    <EditText
-        android:id="@+id/editText_MACAdress"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:contentDescription="MAC Address"
-        android:ems="10"
-        android:hint="MAC Address"
-        android:inputType="textPersonName"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/editText_MACAdress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="MAC Address"
+            android:hint="MAC Address"
+            android:layout_weight="1"
+            android:inputType="textPersonName" />
+
+        <ImageView
+            android:id="@+id/imageView_search"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button_ligar"
@@ -31,14 +45,14 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="25dp"
         android:background="@color/colorPrimary"
         android:elevation="24dp"
         android:text="Ligar"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_MACAdress" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/button_desligar"

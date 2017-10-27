@@ -38,9 +38,10 @@ public class ListaMovimentos extends AppCompatActivity {
     DatabaseHelper db;
     Context context;
     ServiceBitalino mService;
-    boolean mBounded;
+    boolean mBounded, listaAtiva;
     Intent intentServiceBitalino;
     Handler handler;
+
 
 
     @Override
@@ -70,17 +71,24 @@ public class ListaMovimentos extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Movimento movimento = listaMovimentos.get(position);
-                Snackbar.make(view, "A realizar: " + movimento.getNome() + " " + movimento.getTodosValores() , Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                listView.setEnabled(false);
 
+                if(listaAtiva)
+                    Snackbar.make(view, "A realizar: " + movimento.getNome() + " " + movimento.getTodosValores() , Snackbar.LENGTH_LONG).setAction("No action", null).show();
+                else {
+                    Toast.makeText(getApplicationContext(), "A realizar ...", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // listView.setEnabled(false);
                 final int[] cont = {0};
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         if(cont[0] == 7) {
                             handler.removeCallbacksAndMessages(null);
-                            reEnableList();
+                            // reEnableList();
+                            listaAtiva = true;
                         } else {
+                            listaAtiva = false;
                             cont[0] += 1;
                             controlaMotores(cont[0],movimento);
                             handler.postDelayed(this, 1500);
@@ -130,6 +138,7 @@ public class ListaMovimentos extends AppCompatActivity {
         context = this;
         listView = (ListView)findViewById(R.id.listview_listaMovimentos);
         handler = new Handler();
+        listaAtiva = true;
     }
 
     public void fillList() {

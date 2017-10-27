@@ -32,6 +32,9 @@
             android:name=".Definicoes"
             android:noHistory="true" />
         <activity
+            android:name=".ScanActivity"
+             />
+        <activity
             android:name=".About"
             android:noHistory="true"
             />

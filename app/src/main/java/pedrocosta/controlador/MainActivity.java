@@ -214,11 +214,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             Intent i = new Intent(getApplicationContext(), Definicoes.class);
             startActivity(i);
             return true;
         }
+        */
         if (id == R.id.item_info) {
             Intent i = new Intent(getApplicationContext(), About.class);
             startActivity(i);
@@ -338,6 +340,7 @@ public class MainActivity extends AppCompatActivity
         System.out.println(dedoMedio.toString());
         System.out.println(dedoAnelar.toString());
         System.out.println(dedoMinimo.toString());
+        System.out.println(dedoRotacao.toString());
     }
 
     public int pct(int percentagem, int valor){

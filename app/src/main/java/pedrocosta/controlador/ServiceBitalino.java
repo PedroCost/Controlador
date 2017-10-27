@@ -54,7 +54,7 @@ public class ServiceBitalino extends Service {
         bitalino = new BITalinoCommunicationFactory().getCommunication(Communication.BTH, getBaseContext(), new OnBITalinoDataAvailable() {
             @Override
             public void onBITalinoDataAvailable(BITalinoFrame bitalinoFrame) {
-                Log.d(TAG, "BITalinoFrame: " + bitalinoFrame.toString());
+                // Log.d(TAG, "BITalinoFrame: " + bitalinoFrame.toString());
 
             }
         });
@@ -133,20 +133,20 @@ public class ServiceBitalino extends Service {
             if (Constants.ACTION_STATE_CHANGED.equals(action)) {
                 String identifier = intent.getStringExtra(Constants.IDENTIFIER);
                 Constants.States state = Constants.States.getStates(intent.getIntExtra(Constants.EXTRA_STATE_CHANGED,0));
-                Log.i(TAG, "Device " + identifier + ": " + state.name());
+                // Log.i(TAG, "Device " + identifier + ": " + state.name());
                 BITalinoName = ("Device " + identifier + ": " + state.name());
 
             } else if (Constants.ACTION_DATA_AVAILABLE.equals(action)) {
                 BITalinoFrame frame = intent.getParcelableExtra(Constants.EXTRA_DATA);
-                Log.d(TAG, "BITalinoFrame: " + frame.toString());
+                // Log.d(TAG, "BITalinoFrame: " + frame.toString());
             } else if (Constants.ACTION_COMMAND_REPLY.equals(action)) {
                 String identifier = intent.getStringExtra(Constants.IDENTIFIER);
                 Parcelable parcelable = intent.getParcelableExtra(Constants.EXTRA_COMMAND_REPLY);
                 if(parcelable.getClass().equals(BITalinoState.class)){
-                    Log.d(TAG, "BITalinoState: " + parcelable.toString());
+                    // Log.d(TAG, "BITalinoState: " + parcelable.toString());
                     BITalinoState = ("BITalinoState: " + parcelable.toString());
                 } else if(parcelable.getClass().equals(BITalinoDescription.class)){
-                    Log.d(TAG, "BITalinoDescription: isBITalino2: " + ((BITalinoDescription)parcelable).isBITalino2() + "; FwVersion:" + String.valueOf(((BITalinoDescription)parcelable).getFwVersion()));
+                    // Log.d(TAG, "BITalinoDescription: isBITalino2: " + ((BITalinoDescription)parcelable).isBITalino2() + "; FwVersion:" + String.valueOf(((BITalinoDescription)parcelable).getFwVersion()));
                     BITalinoVersion = ("BITalinoDescription: isBITalino2: " + ((BITalinoDescription)parcelable).isBITalino2() + "; FwVersion:" + String.valueOf(((BITalinoDescription)parcelable).getFwVersion()));
                 }
             } else if (Constants.ACTION_MESSAGE_SCAN.equals(action)){

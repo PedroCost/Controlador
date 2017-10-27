@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,12 +33,16 @@ public class Definicoes extends AppCompatActivity {
 
     TextView textEstado, textMACAddress;
 
+    ImageView imageSearch;
+
     Button buttonLigar, buttonDefault, buttonDesligar;
     private Constants.States currentState = Constants.States.DISCONNECTED;
 
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     Handler handler;
+
+    String aux_lastState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +99,13 @@ public class Definicoes extends AppCompatActivity {
             }
         });
 
+        imageSearch.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Definicoes.this, ScanActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void bitalinoInformacao() {
@@ -103,16 +115,17 @@ public class Definicoes extends AppCompatActivity {
         String bitalinoState = informacao[0];
         String bitalinoName = informacao[1];
 
+        if(!bitalinoState.equals(aux_lastState)) {
+            aux_lastState = bitalinoState;
 
-        if(bitalinoState.equals("null")){
-            textEstado.setText("NOT_CONNECTED");
+            if (bitalinoState.equals("null")) {
+                textEstado.setText("NOT_CONNECTED");
+            } else {
+                String[] bitalinoInfo = bitalinoState.split(" "); // String retornada: Device 20:15:05:29:21:77: CONNECTED
+                textEstado.setText(bitalinoInfo[2]);
+                textMACAddress.setText(bitalinoInfo[1].substring(0, bitalinoInfo[1].length() - 1));
+            }
         }
-        else {
-            String[] bitalinoInfo = bitalinoState.split(" "); // String retornada: Device 20:15:05:29:21:77: CONNECTED
-            textEstado.setText(bitalinoInfo[2]);
-            textMACAddress.setText(bitalinoInfo[1]);
-        }
-
     }
 
     private void initElements(){
@@ -127,10 +140,13 @@ public class Definicoes extends AppCompatActivity {
         textEstado = (TextView) findViewById(R.id.textView_estado);
         textMACAddress = (TextView) findViewById(R.id.textView_macAddress);
 
+        imageSearch = (ImageView) findViewById(R.id.imageView_search);
+
         buttonLigar = (Button) findViewById(R.id.button_ligar);
         buttonDesligar = (Button) findViewById(R.id.button_desligar);
 
         handler = new Handler();
+        aux_lastState = "";
     }
 
 
